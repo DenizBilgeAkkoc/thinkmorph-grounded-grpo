@@ -1,0 +1,69 @@
+RTX optimization results — 13 November 2026
+
+The old RTX pilot was stopped as authorized; 71 completed prompts / 568 rollouts were preserved.
+The production A100 training run and its source were not changed. RTX allocation 1965089 remains reserved.
+
+MEASURED SAMPLING: two fixed questions, eight complete interleaved rollouts each.
+Same SFT model, initial LoRA weights, task images, logical rollout seeds, no CFG, 4096-token cap,
+15 diffusion timesteps, 3 SDE transitions, and maximum 3 image rounds as A100 production.
+Baseline source matches all 30 A100 modules; candidates are an isolated copy.
+
+Configuration                         Jigsaw        Visual search     Total compute     Speedup
+Production baseline, text batch 2       319.02s        131.36s          450.39s          1.00x
+Text batch 8, CPU VAE                   232.20s        105.77s          337.97s          1.33x
+Text batch 8, GPU VAE                    99.03s         39.42s          138.45s          3.25x
+
+Combined sampling reduction: 69.3%. Peak CUDA allocated memory including new-trace gradient checks: 56.16 GiB.
+Sampling-only GPU utilization (10-second telemetry): baseline 40%, batch8 CPU VAE 33%, batch8 GPU VAE 75%.
+Combined candidate peak observed resident memory: 58.7 GiB; sampling utilization has only 14 telemetry observations.
+Baseline generated 9492 text tokens; batch8 CPU VAE 9150; batch8 GPU VAE 9192. Every configuration produced 16 images.
+These are sums of per-question compute time, not the wall time of a synchronized multi-GPU training run.
+Baseline was sampled twice with near-identical times. Candidate timings are one complete run per question.
+GPU VAE and wider BF16 generation can change sampled outputs; no bitwise output-equivalence claim is made.
+
+WHAT CHANGED:
+1. Generate the eight text rollouts together; retain production replay pairs of two.
+   Every recorded action is validated and replayed exactly once; each rollout retains its RNG stream.
+2. Run FP32 VAE encoder/decoder convolutions on GPU, with TF32 disabled.
+   Keep posterior sampling and scale/shift on CPU, preserving CPU RNG consumption exactly.
+   Component encode/decode speedup: 28–33x. Decoded 8-bit images differed by at most one intensity level in the fixed-input test.
+3. Reduce replay layer recomputation when memory permits. Auto mode retains checkpointing above 2048 query tokens.
+
+REAL GRPO BACKWARD, using each archived trajectory's own real judge rewards:
+  Question 0: 40.14s -> 35.12s; question 1: 26.95s -> 23.37s.
+  12.8% less backward time, identical gradients across all 784 LoRA gradient tensors; two repetitions per setting.
+  Memory rose from 32.8–33.8 GiB to 38.0–44.0 GiB. These tests stop before an optimizer step.
+
+CORRECTNESS CHECKS:
+  Each candidate: all 32 new text actions and 48 native image transitions passed gradient-enabled replay.
+  Old/new full-causal text likelihood delta = 0; native image behavior likelihood delta = 0; gradients finite.
+  Replay stays pairs of two. Larger replay batches are not used because prior trials changed gradients.
+  CPU RNG consumption exact in VAE comparison; conditioning latents retained in artifacts.
+  Existing incremental-sampling versus full-causal-replay BF16 discrepancy remains; matched old/new scores do not prove exact on-policy sampling.
+    compute_generation8: max action logp delta 3.9746, max token delta 1.1892, summed absolute action discrepancy / token 0.004206.
+    compute_generation8_gpuvae: max action logp delta 6.0222, max token delta 1.6537, summed absolute action discrepancy / token 0.004422.
+    baseline_new_trace_checks: max action logp delta 4.8536, max token delta 1.3465, summed absolute action discrepancy / token 0.004154.
+
+IMAGE FLOW BATCHING: stage-only batch4 reduced flow integration by 10–26% on two shapes.
+Fresh batched generation/replay agreed; replaying old singleton likelihoods at larger width did not.
+This optimization is not included in the full sampling candidate; it requires matching generation/replay artifacts.
+
+LIVE TRAINING LIMIT:
+The full two-rank / two-update / four-question comparison did not complete because concurrent Gemini uploads timed out.
+HTTP/2 passed isolated probes, but concurrent large uploads also timed out. Both transports and failed artifacts are retained.
+No transport failure was scored as zero. No synthetic rewards, substitute judgments, or claimed successful optimizer updates.
+Thus there is no measured end-to-end training speedup, reward-quality conclusion, or full new-candidate distributed checkpoint proof.
+A short live-judge training validation remains necessary before adopting these changes on A100.
+
+CONDITIONAL A100 CALCULATION (not measured):
+  Recent 23 complete 8-question waves averaged 804.3s: about 859 questions/day.
+  If RTX compute ratios transfer, with +0s extra judge tail/wave: 507.1s/wave, ~1363 questions/day.
+  If RTX compute ratios transfer, with +60s extra judge tail/wave: 567.1s/wave, ~1219 questions/day.
+  If RTX compute ratios transfer, with +120s extra judge tail/wave: 627.1s/wave, ~1102 questions/day.
+  Missing component timings on 15 workers are held unchanged, so no speedup is imputed to that work.
+  Counts describe questions seen/attempted, including skipped groups; they are not all gradient-contributing groups.
+  Hardware scaling, longer text, checkpoint policy, judge latency, and only two sampled questions limit this calculation.
+
+FILES: candidate_source/ contains the isolated implementation; Optimization.patch contains the changes.
+Decisions_For_Review.txt records decisions and limits. FINAL_RESULTS.json stores machine-readable results.
+results/ retains every sampled trace, RNG sidecar, source fingerprint, judge audit, and validation result.

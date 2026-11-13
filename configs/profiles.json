@@ -1,0 +1,18 @@
+{
+  "production": {
+    "source": "snapshots/production",
+    "text_batch_size": 2,
+    "image_batch_size": 1,
+    "vae_device": "cpu",
+    "replay_checkpoint": "on",
+    "validation": "Exact 30-module A100 training snapshot; production behavior."
+  },
+  "optimized": {
+    "source": "src",
+    "text_batch_size": 8,
+    "image_batch_size": 2,
+    "vae_device": "cuda",
+    "replay_checkpoint": "auto",
+    "validation": "Exact 34-module RTX candidate; two real synchronized optimizer updates/reloads passed, three of four question groups accepted. Not deployed to A100; H200 unmeasured."
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "status": "REPRODUCIBLE_THINKMORPH_GRPO",
+  "judge_model": "gemini-3.8-flash",
+  "guidance_policy": "disabled_for_all_rl_sampling_and_replay",
+  "process_judge_uses_reference_trace": false,
+  "process_judge_uses_correct_answer": false,
+  "reward_aggregation": "direct_observation_grounding_v10",
+  "grpo": {
+    "gamma": 0.7,
+    "text_weight": 0.3,
+    "accuracy_weight": 0.5,
+    "min_std": 0.02,
+    "adv_clip": 5.0,
+    "clip_range": 0.2,
+    "velocity_beta": 0.0001,
+    "normalize_process_returns": true,
+    "unfinished_penalty": 0.5
+  },
+  "lora": {
+    "rank": 64,
+    "alpha": 128
+  },
+  "optimizer": {
+    "image_learning_rate": 5e-05,
+    "text_learning_rate": 3e-05,
+    "weight_decay": 0.0
+  },
+  "notes": "Grounded v10, Gemini direct observation, parallel old/new text likelihood. Execution profile chosen at launch; see README.",
+  "judge_version": "grounded_v10",
+  "terminal_policy_version": "semantic_target_v2",
+  "judge_protocol_revision": "direct_observation_scoped_json_20261110",
+  "text_likelihood_backend": "parallel_full_sequence_consistent_old_new",
+  "unscorable_group_policy": "skip_complete_N8_group_after_bounded_judge_assessment_failure; no missing reward imputation",
+  "judge_provider": "google_gemini"
+}

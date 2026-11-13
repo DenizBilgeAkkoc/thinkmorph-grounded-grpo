@@ -1,0 +1,6 @@
+Optimized RTX image batch 2 pilot: passed.
+Four questions / 32 rollouts; two optimizer updates.
+Three question groups contributed gradients; one Jigsaw group was unscorable.
+Per-wave adapter/Adam/RNG reload and cross-rank agreement verified.
+This is a short functional validation, not long-run stability evidence.
+Detailed counts, timings and memory: two_update_pilot.json.

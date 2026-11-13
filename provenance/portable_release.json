@@ -1,0 +1,34 @@
+{
+  "unchanged_helpers": {
+    "scripts/io_resilience.py": {
+      "origin": "a100_recovery_20261113/io_resilience.py",
+      "sha256": "d6d1b272f895720a15e43953077407e8f69825b6eb1a310710222dc4ecd990d2"
+    },
+    "scripts/gemini_http2.py": {
+      "origin": "rtx_image_batch2_pilot_20261113/code/gemini_http2.py",
+      "sha256": "dfc95b251b9230334aeb612c84938cfdc5381db3f7523377f331584bb115b493"
+    },
+    "logging/wandb_media.py": {
+      "origin": "a100_next1000_20261112/release/logging/wandb_media.py",
+      "sha256": "27e79dd2db774edfe055f538b1ef7d752a91357211ebe64c778117075d745ef7"
+    },
+    "logging/wandb_metrics.py": {
+      "origin": "a100_next1000_20261112/release/logging/wandb_metrics.py",
+      "sha256": "bb307e853c8231ba3aecbf658b1e07aec3ad392cc2fafbcba3bca0430e61ec97"
+    }
+  },
+  "adapted_helpers": {
+    "logging/wandb_sidecar.py": "Online/media implementation retained; historical run metadata replaced with actual portable run configuration.",
+    "scripts/export_adapters.py": "CPU export retained; added complete-marker/reload-proof preflight.",
+    "scripts/rescore_missing.py": "Blind extraction retained; parameterized paths and model identity."
+  },
+  "new_wrappers": [
+    "scripts/train.py",
+    "scripts/worker.py",
+    "scripts/evaluate.py",
+    "scripts/check_setup.py",
+    "scripts/download_assets.py",
+    "scripts/prepare_data.py"
+  ],
+  "historical_math_oracle": "BAGEL-Canvas functions copied through AST extraction for independent regression comparisons."
+}

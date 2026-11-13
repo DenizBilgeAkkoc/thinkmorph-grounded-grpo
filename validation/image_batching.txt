@@ -1,0 +1,94 @@
+PARALLEL IMAGE GENERATION — RTX RESULTS, 2026-11-13
+
+Yes: implemented and tested diffusion batches of 2, 4 and 8 images per GPU.
+Each batch contains independent rollouts of one question. Generation and
+GRPO image replay use the same packed batch, with independent rollout RNGs.
+
+Measured comparison: four fixed questions, eight rollouts each, 32 images per
+variant. Same initial policy/seeds, text generation width 8, text replay width
+2, GPU FP32 VAE with CPU posterior RNG, checkpointing auto, CFG disabled.
+Tasks: Jigsaw Assembly, Visual Search, Chart Refocus, Spatial Navigation.
+This baseline is the already optimized RTX sampler, not the A100 recipe.
+
+Variant     Sampling s  Flow s     Tokens  Sample   Replay
+                                          GiB      GiB
+baseline     220.19      0.00   14417   56.16   41.85
+batch1       223.13     75.69   14417   56.16   41.85
+batch2       215.47     68.75   14463   56.18   38.95
+batch4       217.57     68.12   14684   56.17   39.12
+batch8       214.64     69.28   14562   56.15   45.99
+
+"baseline" is the previous sampler's singleton image path. "batch1" is the
+new implementation with width 1; its diffusion timer excludes VAE/context
+work. The old baseline has no separate flow timer (the 0 is not zero cost).
+Memory columns are peak allocated CUDA memory; replay is likelihood/gradient
+validation, not a measurement of a full distributed optimizer update.
+
+Against the previous sampler, total sampling time fell by 2.14% for width 2,
+1.19% for width 4, and 2.52% for width 8. Against the new width-1 path, diffusion
+alone fell by 9.16%, 9.99%, and 8.47%, respectively. Width-1 refactor overhead
+was 1.34% in this trial. This is a small, single-pass performance sample.
+Outputs after diffusion can differ with batch layout, and text token counts
+above differ slightly, so the sub-percent ordering of widths is not robust.
+
+A single image already contains many latent tokens processed in parallel.
+Extra batch capacity therefore gives a modest gain here. VAE decode, context
+updates, text generation, and prefix construction still take time. More free
+VRAM alone does not imply proportional image-generation speedups.
+
+Validation:
+- Five variants x 32 rollouts = 160 complete rollouts; all passed.
+- Width 1 exactly reproduced previous text, image pixels, full saved diffusion
+  transitions, and initial/final lane RNG states for all 32 rollouts.
+- Widths 2/4/8 retained identical per-lane initial noise and RNG states before
+  and after diffusion for all 96 wider-batch first-image actions.
+- All 480 recorded image transitions matched gradient-enabled replay exactly:
+  maximum image log-probability delta 0. All gradients were finite.
+- Text old/new full-causal replay identity also passed. The existing difference
+  between incremental text sampling and full-causal replay remains diagnostic;
+  this work does not claim that those two text distributions are identical.
+- Seven CPU tests cover normalization, preserving accumulated text gradients,
+  bad-likelihood rejection, scalar-path guards, and geometry RNG isolation.
+- 24 artifact-tampering cases were rejected.
+
+Actual training check:
+Eight newly generated width-2 chart rollouts received complete fresh Gemini
+3.8 Flash low/direct judgments. A complete GRPO backward with frozen-reference
+velocity regularization and one AdamW update passed. Backward took 36.88 s,
+peak allocated 34.85 GiB. All 16 step advantages were active; all old/new
+ratios were 1; gradients and updated parameters were finite. Saving/reloading
+weights, optimizer state and RNG was exact. No fabricated or mismatched
+rewards were used. This is one optimizer step, not a long-run stability study.
+
+Recommendation:
+Use image batch size 2 for a conservative follow-up training trial. Widths 4
+and 8 fit and work in this sample, but do not justify a larger setting on
+throughput alone. Keep the production default unchanged until a separate
+A100 test is authorized. No new A100 end-to-end time estimate is supported by
+this RTX measurement. Combining these image changes with two-question text
+batching has an implementation hook but was not benchmarked in this trial.
+
+Files:
+- candidate_source/thinkmorph_grpo/image_batching.py: generation, artifacts,
+  matched image replay and backward helper.
+- Image_Batching.patch: changes against rtx_question_batching_20261113 source.
+- config/pilot_manifest.json: exact questions, source rows and image hashes.
+- results/{baseline,batch1,batch2,batch4,batch8}/: full traces, seeds, RNGs,
+  conditioning assets, transitions, batch bindings, timings and checks.
+- results/optimizer/: real optimizer metrics and one-step test checkpoint.
+- RESULTS.json: full machine-readable results and source identities.
+- Decisions_For_Review.txt: implementation decisions and limits.
+
+For an isolated trial, the tested candidate settings were:
+THINKMORPH_TEXT_BATCH_SIZE=8
+THINKMORPH_IMAGE_BATCH_SIZE=2  (also tested 1, 4, 8)
+THINKMORPH_VAE_DEVICE=cuda
+THINKMORPH_REPLAY_CHECKPOINT=auto
+Use the candidate package with its matched ParallelGRPOTrainer. Do not mix
+these image artifacts with singleton replay or reuse singleton image old
+log-probabilities in a wider batch.
+
+Production: read-only A100 audit found the training service active and all
+30 production modules unchanged. No production files, service settings or
+training state were modified. Both RTX GPUs finished idle; allocation 1965089
+was retained.

@@ -1,0 +1,121 @@
+{
+  "id": "ThinkMorph/Visual_Search",
+  "sha": "f4e1839ca893a151355b7c843b737bf907cf0a05",
+  "siblings": [
+    {
+      "rfilename": ".gitattributes",
+      "blobId": "1ef325f1b111266a6b26e0196871bd78baa8c2f3",
+      "size": 2461
+    },
+    {
+      "rfilename": "README.md",
+      "blobId": "c17de01af219e31dd9e6511cf885298b61978c4d",
+      "size": 4639
+    },
+    {
+      "rfilename": "data/train-00000-of-00003.parquet",
+      "blobId": "49d989f779bfef83f94d09fa28d33a391a027198",
+      "size": 409213332,
+      "lfs": {
+        "sha256": "6face269e413d1d2e2dedd33f0f6b603d0d0ff7d6877b0710d0946e8be08e561",
+        "size": 409213332,
+        "pointerSize": 134
+      }
+    },
+    {
+      "rfilename": "data/train-00001-of-00003.parquet",
+      "blobId": "8fb85dfbc00a5197d49bd89a315d9927f21a05ec",
+      "size": 416759142,
+      "lfs": {
+        "sha256": "cd64112878a3e282028d2dadad489a789778e99702208251f2de9dc10c9e18ac",
+        "size": 416759142,
+        "pointerSize": 134
+      }
+    },
+    {
+      "rfilename": "data/train-00002-of-00003.parquet",
+      "blobId": "c08ba17fabecce330ae84f20ba0a465ec63fd665",
+      "size": 425264118,
+      "lfs": {
+        "sha256": "2e1c1e12ae61a3a8c9dff0fe6787e23b9e0c3e80f721afff222e6f84e2d24e8b",
+        "size": 425264118,
+        "pointerSize": 134
+      }
+    }
+  ],
+  "cardData": {
+    "dataset_info": {
+      "features": [
+        {
+          "name": "pid",
+          "dtype": "string"
+        },
+        {
+          "name": "question",
+          "dtype": "string"
+        },
+        {
+          "name": "answer",
+          "dtype": "string"
+        },
+        {
+          "name": "problem_image_0",
+          "dtype": "image"
+        },
+        {
+          "name": "resoning_thought_0",
+          "dtype": "string"
+        },
+        {
+          "name": "reasoning_image_0",
+          "dtype": "image"
+        },
+        {
+          "name": "resoning_thought_1",
+          "dtype": "string"
+        },
+        {
+          "name": "task",
+          "dtype": "string"
+        },
+        {
+          "name": "full_text_only_thought",
+          "dtype": "string"
+        }
+      ],
+      "splits": [
+        {
+          "name": "train",
+          "num_bytes": 1261068619.22,
+          "num_examples": 6990
+        }
+      ],
+      "download_size": 1251236592,
+      "dataset_size": 1261068619.22
+    },
+    "configs": [
+      {
+        "config_name": "default",
+        "data_files": [
+          {
+            "split": "train",
+            "path": "data/train-*"
+          }
+        ]
+      }
+    ],
+    "task_categories": [
+      "any-to-any"
+    ],
+    "language": [
+      "en"
+    ],
+    "tags": [
+      "multimodal",
+      "chain-of-thought"
+    ],
+    "size_categories": [
+      "10K<n<100K"
+    ]
+  }
+}

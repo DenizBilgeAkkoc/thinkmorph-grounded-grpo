@@ -1,0 +1,12 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "thinkmorph-grounded-grpo"
+version = "0.1.0"
+description = "Reproducible native ThinkMorph grounded GRPO with a VLM judge"
+requires-python = ">=3.10"
+
+[tool.setuptools.packages.find]
+where = ["src"]

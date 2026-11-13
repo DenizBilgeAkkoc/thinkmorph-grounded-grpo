@@ -1,0 +1,2 @@
+# Preserve blank context lines in the exact upstream patch artifact.
+patches/*.patch -whitespace

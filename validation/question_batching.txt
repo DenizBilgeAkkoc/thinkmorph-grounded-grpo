@@ -1,0 +1,49 @@
+Multi-question GPU batching results — 13 November 2026
+
+A100 production was not changed. Baseline is already optimized: GPU FP32 VAE,
+eight text rollouts together, original replay pairs2, checkpoint auto.
+Four fixed questions cover Jigsaw, Visual Search, Chart Refocus, Navigation.
+Each configuration samples all four at the same initial SFT/LoRA policy,
+eight independent rollout seeds per question, same task images/settings.
+Image diffusion remains singleton. No judge/API calls occur in these timing tests.
+
+Questions/GPU    Text lanes    Time for all 4 questions    Peak allocated VRAM    Speedup
+1                8             219.12s                       56.16 GiB              1.00x
+2                16            202.80s                       70.45 GiB              1.081x
+4                32            out_of_memory (not a completed throughput result)
+
+Baseline generated 14417 text tokens and 32 images.
+two_questions: 15175 tokens / 32 images; 7.5% less sampling time; text work changed by +5.3%.
+
+Correctness: every successful arm validates all four independent N8 groups.
+Global text batching is recorded explicitly, with hash-bound projections for each question.
+Full token/EOS/cap coverage and per-lane RNG remain independent. Replay stays within-question pairs2.
+Old/new full-causal text likelihoods and native image behavior likelihoods match; finite gradients.
+This preserves the existing text sampling/full-causal numerical approximation; it does not prove identical sampling arithmetic.
+Unit tests cover 16/32-lane independence, crossed question IDs/seeds, altered artifacts, flat-group denominators and failure cleanup.
+
+Optimizer test status: passed
+One real Adam step combines two archived N8 questions with their own original judge rewards.
+Mean gradient relative L2 difference versus separately computed question gradients: 0 (cosine 1).
+Per-question advantages and returns were unchanged; no cross-question reward normalization.
+Saved checkpoint reload: policy exact=True, Adam exact=True, RNG exact=True.
+This is one update on saved on-policy trajectories, not a new live-judge multi-step training run.
+
+Training semantics: two questions per GPU means sixteen rollouts on that GPU.
+On eight GPUs it would mean sixteen questions / 128 rollouts per optimizer step,
+instead of eight questions / 64 rollouts. Learning rate has not been scaled.
+For distributed training, sum question gradients locally and divide once by the GLOBAL
+accepted-question count. Flat accepted questions still belong in that denominator.
+A larger optimizer batch reduces update/checkpoint frequency per example and changes learning dynamics.
+The new core APIs are isolated experimental implementations; the production distributed
+runner and its sample-history/W&B/checkpoint integration have not been switched to them.
+
+Limits: one four-question comparison, heterogeneous lengths, different sampled text,
+small number of questions, and no measured live-judge wall-time or training-quality result.
+The 3-image/long-context worst case was not established by these normal one-image examples.
+More occupied VRAM is not automatically proportional to more throughput.
+
+Implementation: candidate_source/thinkmorph_grpo/question_batching.py and question_training.py.
+Reproducibility: fixed manifest/config, full traces, global/local batch documents, RNG sidecars,
+source hashes, GPU telemetry, component metrics and one optimizer checkpoint are retained.
+Detailed decisions: Decisions_For_Review.txt. Machine-readable report: RESULTS.json.

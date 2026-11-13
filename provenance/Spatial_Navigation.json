@@ -1,0 +1,101 @@
+{
+  "id": "ThinkMorph/Spatial_Navigation",
+  "sha": "b7567d9f2fcd096f5bf225cc4e64fc5c2b360897",
+  "siblings": [
+    {
+      "rfilename": ".gitattributes",
+      "blobId": "1ef325f1b111266a6b26e0196871bd78baa8c2f3",
+      "size": 2461
+    },
+    {
+      "rfilename": "README.md",
+      "blobId": "d1e015b4ef758412047bb0a5ba05b07b5591f95a",
+      "size": 4621
+    },
+    {
+      "rfilename": "data/train-00000-of-00001.parquet",
+      "blobId": "3ad59425b0e3653f7390e34a7509a7e8923f1236",
+      "size": 112608948,
+      "lfs": {
+        "sha256": "e4b2c7cc7ae3b520aa133df62a83d0bf20e36575565de9e1d79f30fd6a361322",
+        "size": 112608948,
+        "pointerSize": 134
+      }
+    }
+  ],
+  "cardData": {
+    "dataset_info": {
+      "features": [
+        {
+          "name": "pid",
+          "dtype": "string"
+        },
+        {
+          "name": "question",
+          "dtype": "string"
+        },
+        {
+          "name": "answer",
+          "dtype": "string"
+        },
+        {
+          "name": "problem_image_0",
+          "dtype": "image"
+        },
+        {
+          "name": "resoning_thought_0",
+          "dtype": "string"
+        },
+        {
+          "name": "reasoning_image_0",
+          "dtype": "image"
+        },
+        {
+          "name": "resoning_thought_1",
+          "dtype": "string"
+        },
+        {
+          "name": "task",
+          "dtype": "string"
+        },
+        {
+          "name": "full_text_only_thought",
+          "dtype": "string"
+        }
+      ],
+      "splits": [
+        {
+          "name": "train",
+          "num_bytes": 125074111,
+          "num_examples": 6000
+        }
+      ],
+      "download_size": 112608948,
+      "dataset_size": 125074111
+    },
+    "configs": [
+      {
+        "config_name": "default",
+        "data_files": [
+          {
+            "split": "train",
+            "path": "data/train-*"
+          }
+        ]
+      }
+    ],
+    "task_categories": [
+      "any-to-any"
+    ],
+    "language": [
+      "en"
+    ],
+    "tags": [
+      "multimodal",
+      "chain-of-thought"
+    ],
+    "size_categories": [
+      "1K<n<10K"
+    ]
+  }
+}

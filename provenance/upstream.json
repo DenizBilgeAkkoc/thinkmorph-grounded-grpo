@@ -1,0 +1,11 @@
+{
+  "ThinkMorph": {
+    "url": "https://github.com/ThinkMorph/ThinkMorph.git",
+    "revision": "c1a48adfa212259c8ad79dfd9d05d87c27340cef"
+  },
+  "VLMEvalKit": {
+    "url": "https://github.com/hychaochao/VLMEvalKit_Thinkmorph.git",
+    "revision": "cddb6a38ac5dfaf64020d6aa3964506e26006568",
+    "patch_sha256": "e93a09cdc90452f9bc2179ca2beca0c30e42ef8e40df70bb76023ec9b9dc0867"
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "date": "2026-11-13",
+  "training_sources_unchanged": 64,
+  "cpu_tests": {
+    "passed": 223,
+    "failed": 0,
+    "runner": "unittest; 222-test full suite plus one added W&B configuration test, all six portable tests rerun"
+  },
+  "native_and_vlmeval_pinned_git_fetch": "passed",
+  "vlmeval_patch_apply": "passed",
+  "model_verification": {
+    "files": 12,
+    "result": "all file sizes and SHA256/Git-blob-SHA1 digests passed",
+    "manifest_sha256": "1aa80dd1f3a5af005b47dbdd39f970118fc51591e696babd59e94416bc683382"
+  },
+  "data_rebuild": {
+    "questions": 4,
+    "all_four_tasks": true,
+    "source": "pinned parquet range cache",
+    "identities_verified": [
+      "source_image_bytes",
+      "rgb_pixels",
+      "question_input",
+      "question_answer_image_content",
+      "exported_png"
+    ],
+    "selection_sha256": "c36a8a128398eaf6ce0e4d455519db735b79bc2942c50adc0958adcebfb38999"
+  },
+  "training_launcher": {
+    "production_and_optimized_prepare_only": "passed",
+    "freeze_guards": "passed",
+    "checkpoint_commit_validation": "passed",
+    "wandb_online_configuration_mock": "passed",
+    "live_gpu_launch_during_packaging": false
+  },
+  "setup_imports": "training and MMVP/VStar imports passed in established Python 3.10 environment",
+  "dependency_resolution": {
+    "pip_dry_run": "passed",
+    "note": "Removed unused Gradio UI requirement because it conflicts with pinned huggingface-hub; no installed environment changes"
+  },
+  "cpu_scoring_recheck": {
+    "MMVP": {
+      "questions": 300,
+      "correct": 237,
+      "accuracy_percent": 79.0
+    },
+    "VStarBench": {
+      "questions": 191,
+      "correct": 124,
+      "accuracy_percent": 64.92146596858639
+    }
+  },
+  "scoring_note": "Re-scored existing checkpoint216 outputs with the portable scoring helper; no new generations or judge API calls",
+  "secrets": "Git-tracked credential/private-path/large-binary scan passed",
+  "gpu_evidence": "validation/two_update_pilot.json: archived source modules completed two optimizer updates before packaging",
+  "limitations": [
+    "No clean Ubuntu install performed during packaging",
+    "No new GPU training/inference launched during packaging",
+    "No H200 or two-node throughput validation"
+  ]
+}

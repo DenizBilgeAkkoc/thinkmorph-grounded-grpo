@@ -1,0 +1,175 @@
+diff --git a/run.py b/run.py
+index fbb9c82..5d71abb 100644
+--- a/run.py
++++ b/run.py
+@@ -491,6 +491,8 @@ def main():
+             except Exception as e:
+                 logger.exception(f'Model {model_name} x Dataset {dataset_name} combination failed: {e}, '
+                                  'skipping this combination.')
++                if os.environ.get('VLMEVAL_FAIL_FAST') == '1':
++                    raise
+                 continue
+ 
+     if WORLD_SIZE > 1:
+diff --git a/vlmeval/dataset/image_mcq.py b/vlmeval/dataset/image_mcq.py
+index 0aa3513..23644a6 100644
+--- a/vlmeval/dataset/image_mcq.py
++++ b/vlmeval/dataset/image_mcq.py
+@@ -181,7 +181,8 @@ class ImageMCQDataset(ImageBaseDataset):
+         'MMStar_KO': 'cc6049c7314bb54b9ac5e247a2bfb357',
+         'RealWorldQA': '4de008f55dc4fd008ca9e15321dc44b7',
+         'MLLMGuard_DS': '975fc0dd7119386e198c37d71e274b3f',
+-        'BLINK': '3b6649b6a662184ea046908e5506260e',
++        # Current upstream VLMEvalKit checksum; the public mirror was updated.
++        'BLINK': 'd5e8af148b10ac69f535ff7b23f3f989',
+         'BLINK_circular': '75aee2332420c7654dc51b1442fafc7b',
+         'TaskMeAnything_v1_imageqa_random': '023fef69e2ca21827afb77c5ec3bc889',
+         'WorldMedQA-V': '441e63875e30c87f5750528b57b41285',
+diff --git a/vlmeval/inference.py b/vlmeval/inference.py
+index b18cf74..4eecc63 100644
+--- a/vlmeval/inference.py
++++ b/vlmeval/inference.py
+@@ -7,6 +7,12 @@ from vlmeval.smp import *
+ FAIL_MSG = 'Failed to obtain answer via API.'
+ 
+ 
++def _atomic_checkpoint(result, path):
++    temporary = path + '.tmp.pkl'
++    dump(result, temporary)
++    os.replace(temporary, path)
++
++
+ def _prepare_batch_message(model, struct):
+     assert model.check_content(struct) in ['str', 'dict', 'liststr', 'listdict'], (
+         f'Invalid input type: {struct}'
+@@ -213,7 +219,7 @@ def infer_data(model, model_name, work_dir, dataset, out_file, verbose=False, ap
+             processed += len(chunk_indices)
+             torch.cuda.empty_cache()
+             if processed % 10 == 0:
+-                dump(res, out_file)
++                _atomic_checkpoint(res, out_file)
+ 
+         res = {k: res[k] for k in data_indices}
+         dump(res, out_file)
+@@ -246,8 +252,7 @@ def infer_data(model, model_name, work_dir, dataset, out_file, verbose=False, ap
+             print(response, flush=True)
+ 
+         res[idx] = response
+-        if (i + 1) % 10 == 0:
+-            dump(res, out_file)
++        _atomic_checkpoint(res, out_file)
+ 
+     res = {k: res[k] for k in data_indices}
+     dump(res, out_file)
+@@ -273,7 +278,12 @@ def infer_data_job(
+         if rank == 0:
+             data = load(result_file)
+             # breakpoint()
+-            results = {k: v for k, v in zip(data['index'], data['prediction'])}
++            # ThinkMorph's split_thinking retains the complete native output in
++            # `thinking`. Restore that trace on resume, before splitting again.
++            reuse_column = ('thinking' if model_name == 'ThinkMorph-7B'
++                            and os.getenv('SPLIT_THINK') and 'thinking' in data
++                            else 'prediction')
++            results = {k: v for k, v in zip(data['index'], data[reuse_column])}
+             if not ignore_failed:
+                 results = {k: v for k, v in results.items() if FAIL_MSG not in str(v)}
+             dump(results, prev_file)
+diff --git a/vlmeval/smp/vlm.py b/vlmeval/smp/vlm.py
+index 53e7fc4..b9878d9 100644
+--- a/vlmeval/smp/vlm.py
++++ b/vlmeval/smp/vlm.py
+@@ -159,7 +159,17 @@ def decode_base64_to_image_file(base64_string, image_path, target_size=-1):
+     base_dir = osp.dirname(image_path)
+     if not osp.exists(base_dir):
+         os.makedirs(base_dir, exist_ok=True)
+-    image.save(image_path)
++    # Never expose a half-written image to another rank or a resumed run.
++    extension = osp.splitext(image_path)[1]
++    temporary = f'{image_path}.{uuid4().hex}.tmp{extension}'
++    try:
++        image.load()
++        image.save(temporary)
++        os.replace(temporary, image_path)
++    finally:
++        image.close()
++        if osp.exists(temporary):
++            os.remove(temporary)
+ 
+ 
+ def build_option_str(option_dict):
+@@ -178,8 +188,9 @@ def read_ok(img_path):
+     if not osp.exists(img_path):
+         return False
+     try:
+-        im = Image.open(img_path)
+-        assert im.size[0] > 0 and im.size[1] > 0
++        with Image.open(img_path) as im:
++            assert im.size[0] > 0 and im.size[1] > 0
++            im.load()  # Opening the header alone accepts truncated PNG/JPEG files.
+         return True
+     except:
+         return False
+diff --git a/vlmeval/vlm/ThinkMorph.py b/vlmeval/vlm/ThinkMorph.py
+index ce2dfd7..7c0a921 100644
+--- a/vlmeval/vlm/ThinkMorph.py
++++ b/vlmeval/vlm/ThinkMorph.py
+@@ -2,6 +2,7 @@ from concurrent.futures import ThreadPoolExecutor
+ from copy import deepcopy
+ import os
+ import random
++import re
+ import uuid
+ 
+ import numpy as np
+@@ -69,12 +70,17 @@ def _load_bagel_model(
+ ):
+     model = _build_empty_bagel_model(llm_config, vit_config, vae_config)
+ 
++    # One complete BF16 model per 96-GiB RTX Pro worker; avoid auto CPU offload.
++    if target_device is None and torch.cuda.device_count() == 1:
++        target_device = "cuda:0"
++
+     if target_device is None:
+         max_mem_per_gpu = "80GiB"
+         device_map = infer_auto_device_map(
+             model,
+             max_memory={i: max_mem_per_gpu for i in range(torch.cuda.device_count())},
+             no_split_module_classes=["Bagel", "Qwen2MoTDecoderLayer"],
++            dtype=torch.bfloat16,
+         )
+ 
+         if torch.cuda.device_count() == 1:
+@@ -131,6 +137,18 @@ class ThinkMorph(BaseModel):
+     INSTALL_REQ = False
+     INTERLEAVE = True
+ 
++    def split_thinking(self, text):
++        """Score the terminal native answer; retain the entire trace for audit.
++
++        Activated by VLMEvalKit's SPLIT_THINK option. In particular, circular
++        exact matching must not search earlier reasoning for option letters.
++        """
++        terminal = re.split(r"(?m)^Round_\d+:\n", text)[-1]
++        answers = re.findall(r"<answer>(.*?)</answer>", terminal, flags=re.S)
++        ends_in_image = re.search(r"\[Image:[^\n]+\]\s*$", text) is not None
++        answer = answers[0].strip() if len(answers) == 1 and not ends_in_image else ""
++        return answer or "[NO_FINAL_ANSWER]", text
++
+     def __init__(self, model_path='ThinkMorph/ThinkMorph-7B', think=True, understanding_output=True, save_dir=None, temperature=0.3, max_think_token_n=4096, **kwargs):
+         # self.check_install()
+         assert model_path is not None
+diff --git a/vlmeval/vlm/thinkmorph/inferencer.py b/vlmeval/vlm/thinkmorph/inferencer.py
+index e7769cc..a74c61e 100644
+--- a/vlmeval/vlm/thinkmorph/inferencer.py
++++ b/vlmeval/vlm/thinkmorph/inferencer.py
+@@ -240,6 +240,9 @@ class InterleaveInferencer:
+ 
+     @torch.no_grad()
+     def gen_text(self, gen_context, max_length: int = 500, do_sample: bool = True, temperature: float = 1.0):
++        # Match the released ThinkMorph inferencer: generate_text mutates its KV
++        # cache, while interleave_inference subsequently commits the text itself.
++        gen_context = deepcopy(gen_context)
+         past_key_values = gen_context['past_key_values']
+         kv_lens = list(gen_context['kv_lens'])
+         ropes = list(gen_context['ropes'])

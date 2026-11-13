@@ -1,0 +1,78 @@
+{
+  "repository": "ThinkMorph/ThinkMorph-7B",
+  "revision": "ad1a4abccca4df166f2c9d2178eb33ed61ae367e",
+  "files": [
+    {
+      "file": ".gitattributes",
+      "bytes": 1519,
+      "algorithm": "sha1",
+      "digest": "a6344aac8c09253b3b630fb776ae94478aa0275b"
+    },
+    {
+      "file": "README.md",
+      "bytes": 3963,
+      "algorithm": "sha1",
+      "digest": "8536a6ff479f3c0bac90eb278516d71b045f6fb6"
+    },
+    {
+      "file": "ae.safetensors",
+      "bytes": 335304388,
+      "algorithm": "sha256",
+      "digest": "afc8e28272cd15db3919bacdb6918ce9c1ed22e96cb12c4d5ed0fba823529e38"
+    },
+    {
+      "file": "config.json",
+      "bytes": 39,
+      "algorithm": "sha1",
+      "digest": "055afd09ddce7bd5a4989539a9bfbcdcf2b4f8bd"
+    },
+    {
+      "file": "generation_config.json",
+      "bytes": 243,
+      "algorithm": "sha1",
+      "digest": "0eb3c536657dcd12626e09eca4b6198c0cbcde1e"
+    },
+    {
+      "file": "llm_config.json",
+      "bytes": 663,
+      "algorithm": "sha1",
+      "digest": "0178295f88afc3c7f279ed284f961f8c1be00654"
+    },
+    {
+      "file": "merges.txt",
+      "bytes": 1671839,
+      "algorithm": "sha1",
+      "digest": "20024bfe7c83998e9aeaf98a0cd6a2ce6306c2f0"
+    },
+    {
+      "file": "model.safetensors",
+      "bytes": 29214685336,
+      "algorithm": "sha256",
+      "digest": "3c05fc7d7feefd429d4c0c642bd4296b69ebc11c556f525bc913ed0d9c22b414"
+    },
+    {
+      "file": "tokenizer.json",
+      "bytes": 7031645,
+      "algorithm": "sha1",
+      "digest": "443909a61d429dff23010e5bddd28ff530edda00"
+    },
+    {
+      "file": "tokenizer_config.json",
+      "bytes": 7305,
+      "algorithm": "sha1",
+      "digest": "07bfe0640cb5a0037f9322287fbfc682806cf672"
+    },
+    {
+      "file": "vit_config.json",
+      "bytes": 205,
+      "algorithm": "sha1",
+      "digest": "25a3362fcc5174d1c6938b0a6fd038d0ed701f78"
+    },
+    {
+      "file": "vocab.json",
+      "bytes": 2776833,
+      "algorithm": "sha1",
+      "digest": "4783fe10ac3adce15ac8f358ef5462739852c569"
+    }
+  ]
+}

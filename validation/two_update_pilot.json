@@ -1,0 +1,97 @@
+{
+  "status": "passed",
+  "optimizer_updates": 2,
+  "questions": 4,
+  "rollouts": 32,
+  "two_update_validation_passed": true,
+  "sample_history_counts": {
+    "attempts": 4,
+    "questions_with_sampling_started": 4,
+    "sampled_rollouts": 32,
+    "gradient_contributing_attempts": 3,
+    "flat_attempts": 0,
+    "unscorable_attempts": 1,
+    "uncommitted_attempts": 0
+  },
+  "unscorable_groups_skipped": 1,
+  "a100_changed": false,
+  "synthetic_rewards": false,
+  "waves": [
+    {
+      "wave": 0,
+      "first_group": 0,
+      "last_group": 1,
+      "optimizer_updates": 1,
+      "accepted_question_count": 1,
+      "gradient_question_count": 1,
+      "wall_seconds": 1422.7765647992492,
+      "checkpoint_seconds": 12.16414262354374,
+      "checkpoint_reload_verified": true,
+      "adapters_and_optimizer_identical_across_ranks": true,
+      "workers": [
+        {
+          "group": 0,
+          "rank": 0,
+          "example_id": "Jigsaw_Assembly_row005558_f406195b436c",
+          "accepted": false,
+          "skip_reason": "unscorable_judge_group",
+          "sampling_seconds": null,
+          "judge_tail_seconds": null,
+          "replay_backward_seconds": null,
+          "peak_cuda_allocated_gib": 56.17844581604004,
+          "peak_cuda_reserved_gib": 59.2265625
+        },
+        {
+          "group": 1,
+          "rank": 1,
+          "example_id": "Visual_Search_row002404_755bdf02220f",
+          "accepted": true,
+          "skip_reason": null,
+          "sampling_seconds": 41.928672321140766,
+          "judge_tail_seconds": 690.0454086698592,
+          "replay_backward_seconds": 33.658771742135286,
+          "peak_cuda_allocated_gib": 43.40037250518799,
+          "peak_cuda_reserved_gib": 46.10546875
+        }
+      ]
+    },
+    {
+      "wave": 1,
+      "first_group": 2,
+      "last_group": 3,
+      "optimizer_updates": 2,
+      "accepted_question_count": 2,
+      "gradient_question_count": 2,
+      "wall_seconds": 610.7468336895108,
+      "checkpoint_seconds": 11.81456495821476,
+      "checkpoint_reload_verified": true,
+      "adapters_and_optimizer_identical_across_ranks": true,
+      "workers": [
+        {
+          "group": 2,
+          "rank": 0,
+          "example_id": "Chart_Refocus_row003802_5f7d66b53586",
+          "accepted": true,
+          "skip_reason": null,
+          "sampling_seconds": 48.62144559249282,
+          "judge_tail_seconds": 507.2287004329264,
+          "replay_backward_seconds": 37.30996774882078,
+          "peak_cuda_allocated_gib": 47.718843936920166,
+          "peak_cuda_reserved_gib": 59.89453125
+        },
+        {
+          "group": 3,
+          "rank": 1,
+          "example_id": "Spatial_Navigation_row004626_83a17c9a6552",
+          "accepted": true,
+          "skip_reason": null,
+          "sampling_seconds": 38.12462475895882,
+          "judge_tail_seconds": 342.1812665425241,
+          "replay_backward_seconds": 25.80725061893463,
+          "peak_cuda_allocated_gib": 41.59861183166504,
+          "peak_cuda_reserved_gib": 46.771484375
+        }
+      ]
+    }
+  ]
+}

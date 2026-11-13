@@ -1,0 +1,111 @@
+{
+  "id": "ThinkMorph/Chart_Refocus",
+  "sha": "f088c9c5b1084e1287fd4f969e6e3bcbcfd0d0e6",
+  "siblings": [
+    {
+      "rfilename": ".gitattributes",
+      "blobId": "1ef325f1b111266a6b26e0196871bd78baa8c2f3",
+      "size": 2461
+    },
+    {
+      "rfilename": "README.md",
+      "blobId": "59241d7903ef4a66a95b8059de3d4291764074ba",
+      "size": 4620
+    },
+    {
+      "rfilename": "data/train-00000-of-00002.parquet",
+      "blobId": "7ef0a316018abc17bb8febb65efe67a41ced1bc1",
+      "size": 338522366,
+      "lfs": {
+        "sha256": "9f71d5c483f902bac6bda009984f3285561853bccf555d8d1397c2556589d413",
+        "size": 338522366,
+        "pointerSize": 134
+      }
+    },
+    {
+      "rfilename": "data/train-00001-of-00002.parquet",
+      "blobId": "e7037d51e348ddc66bfaf374e8f57da5a7f1c243",
+      "size": 246729729,
+      "lfs": {
+        "sha256": "880eb5f5618cdcc88cb412186058d3811402100609440a04b712ef9773e5323b",
+        "size": 246729729,
+        "pointerSize": 134
+      }
+    }
+  ],
+  "cardData": {
+    "dataset_info": {
+      "features": [
+        {
+          "name": "pid",
+          "dtype": "string"
+        },
+        {
+          "name": "question",
+          "dtype": "string"
+        },
+        {
+          "name": "answer",
+          "dtype": "string"
+        },
+        {
+          "name": "problem_image_0",
+          "dtype": "image"
+        },
+        {
+          "name": "resoning_thought_0",
+          "dtype": "string"
+        },
+        {
+          "name": "reasoning_image_0",
+          "dtype": "image"
+        },
+        {
+          "name": "resoning_thought_1",
+          "dtype": "string"
+        },
+        {
+          "name": "task",
+          "dtype": "string"
+        },
+        {
+          "name": "full_text_only_thought",
+          "dtype": "string"
+        }
+      ],
+      "splits": [
+        {
+          "name": "train",
+          "num_bytes": 616018966,
+          "num_examples": 6000
+        }
+      ],
+      "download_size": 585252095,
+      "dataset_size": 616018966
+    },
+    "configs": [
+      {
+        "config_name": "default",
+        "data_files": [
+          {
+            "split": "train",
+            "path": "data/train-*"
+          }
+        ]
+      }
+    ],
+    "task_categories": [
+      "any-to-any"
+    ],
+    "language": [
+      "en"
+    ],
+    "tags": [
+      "multimodal",
+      "chain-of-thought"
+    ],
+    "size_categories": [
+      "1K<n<10K"
+    ]
+  }
+}

@@ -1,0 +1,258 @@
+{
+  "src/thinkmorph_grpo/train_distributed.py": {
+    "origin": "rtx_image_batch2_pilot_20261113/source/thinkmorph_grpo/train_distributed.py",
+    "sha256": "44ef377e8f1ff6450b70fc7cebe66949bf57f9737bd9e40806c6f7abb85f5a4d"
+  },
+  "src/thinkmorph_grpo/paired_rollout.py": {
+    "origin": "rtx_image_batch2_pilot_20261113/source/thinkmorph_grpo/paired_rollout.py",
+    "sha256": "cc381c39cde802c655bc62341727f9b47342075ca7c96e5beaabcce69dec9969"
+  },
+  "src/thinkmorph_grpo/train.py": {
+    "origin": "rtx_image_batch2_pilot_20261113/source/thinkmorph_grpo/train.py",
+    "sha256": "2dc4fb7e1c1af1de09d15508dd7d5a07fa068e16c07bb313e55f8d3260d22bbd"
+  },
+  "src/thinkmorph_grpo/__init__.py": {
+    "origin": "rtx_image_batch2_pilot_20261113/source/thinkmorph_grpo/__init__.py",
+    "sha256": "ec1d83d0b01bdd9eaab465e74ee8277a37db12ec0d4c9c6e8e216b334b45cb18"
+  },
+  "src/thinkmorph_grpo/image_batching.py": {
+    "origin": "rtx_image_batch2_pilot_20261113/source/thinkmorph_grpo/image_batching.py",
+    "sha256": "e077594685d856d76cc2e5292478534aa7df06925fc7ad613c1ed5956390098a"
+  },
+  "src/thinkmorph_grpo/replay.py": {
+    "origin": "rtx_image_batch2_pilot_20261113/source/thinkmorph_grpo/replay.py",
+    "sha256": "c38028e1132de08eae9502b52b398d24eb4875d528ae3c89e3ee45c5511f9ae0"
+  },
+  "src/thinkmorph_grpo/judge.py": {
+    "origin": "rtx_image_batch2_pilot_20261113/source/thinkmorph_grpo/judge.py",
+    "sha256": "5cbd82977692dbaaba4724278fa827f17f4ae1a0fe8f454fcc477e53201374c0"
+  },
+  "src/thinkmorph_grpo/paired_replay.py": {
+    "origin": "rtx_image_batch2_pilot_20261113/source/thinkmorph_grpo/paired_replay.py",
+    "sha256": "9428e04fec0fee64a9b84a740ee7909ab871d5a5859f3070836ff2d9b2a015f5"
+  },
+  "src/thinkmorph_grpo/gemini_judge.py": {
+    "origin": "rtx_image_batch2_pilot_20261113/source/thinkmorph_grpo/gemini_judge.py",
+    "sha256": "985096cfe163cf1fe1881bf99fd02e827188822af2e8d7135662df9d30c0aaaa"
+  },
+  "src/thinkmorph_grpo/sde.py": {
+    "origin": "rtx_image_batch2_pilot_20261113/source/thinkmorph_grpo/sde.py",
+    "sha256": "210aefb5089b904f85bbf774a939a968f89b82b1849377cf14ffa70fd3d4a56c"
+  },
+  "src/thinkmorph_grpo/paired_trainer.py": {
+    "origin": "rtx_image_batch2_pilot_20261113/source/thinkmorph_grpo/paired_trainer.py",
+    "sha256": "1fb973407d8da5444d3c1ae0c4a1261f7714d8451e559f2f1e55bb6d58142cee"
+  },
+  "src/thinkmorph_grpo/objective.py": {
+    "origin": "rtx_image_batch2_pilot_20261113/source/thinkmorph_grpo/objective.py",
+    "sha256": "3b5d9e5fbe1a01b4b6e458213cd729859c8e5ab909198f6d95105c067dce6c03"
+  },
+  "src/thinkmorph_grpo/parallel_replay.py": {
+    "origin": "rtx_image_batch2_pilot_20261113/source/thinkmorph_grpo/parallel_replay.py",
+    "sha256": "272af9629fd556e8596e7037f9164224d85e74abe0527fbf9c30b362be99beab"
+  },
+  "src/thinkmorph_grpo/observation_normalization.py": {
+    "origin": "rtx_image_batch2_pilot_20261113/source/thinkmorph_grpo/observation_normalization.py",
+    "sha256": "a2e0d62c2f3dc1fc512147e1095641eae24711c0e4c5d2e158adb7179527cecb"
+  },
+  "src/thinkmorph_grpo/distributed.py": {
+    "origin": "rtx_image_batch2_pilot_20261113/source/thinkmorph_grpo/distributed.py",
+    "sha256": "098541d4d6a2db6423fccffd4f7a454f51591ab305ef61473c375bd672315abd"
+  },
+  "src/thinkmorph_grpo/navigation_perception.py": {
+    "origin": "rtx_image_batch2_pilot_20261113/source/thinkmorph_grpo/navigation_perception.py",
+    "sha256": "d6ce08c5dca1983c9eb917763c3c16ab86dab481f810832ac8ed243b36b07b95"
+  },
+  "src/thinkmorph_grpo/question_batching.py": {
+    "origin": "rtx_image_batch2_pilot_20261113/source/thinkmorph_grpo/question_batching.py",
+    "sha256": "3f9ca34e20f45dcb6c6b50a5461a291bb2cb788fdc4a3a6107425955ab513076"
+  },
+  "src/thinkmorph_grpo/guidance.py": {
+    "origin": "rtx_image_batch2_pilot_20261113/source/thinkmorph_grpo/guidance.py",
+    "sha256": "b9722df1b77736c82c747eae4e677ea6177d130491acd0770f7dc9f6510bf5ab"
+  },
+  "src/thinkmorph_grpo/question_training.py": {
+    "origin": "rtx_image_batch2_pilot_20261113/source/thinkmorph_grpo/question_training.py",
+    "sha256": "bff173fd822010e95084622386bac4aa48d3b9850679a98557cdff905cf70d22"
+  },
+  "src/thinkmorph_grpo/paired_sampling.py": {
+    "origin": "rtx_image_batch2_pilot_20261113/source/thinkmorph_grpo/paired_sampling.py",
+    "sha256": "d372ac07b69336c431a4a125fb5707dceb711e4d33989292125f8e2a8a3039e0"
+  },
+  "src/thinkmorph_grpo/execution_tuning.py": {
+    "origin": "rtx_image_batch2_pilot_20261113/source/thinkmorph_grpo/execution_tuning.py",
+    "sha256": "1695b21ebed8a3d1ad4785f76da89eb99455947d75a69f82e7aa4feaf0925214"
+  },
+  "src/thinkmorph_grpo/checks.py": {
+    "origin": "rtx_image_batch2_pilot_20261113/source/thinkmorph_grpo/checks.py",
+    "sha256": "4ccde826f5e218194068f48693cee524679f79659e7359ed097a2bf88f4bccf2"
+  },
+  "src/thinkmorph_grpo/practical_judge.py": {
+    "origin": "rtx_image_batch2_pilot_20261113/source/thinkmorph_grpo/practical_judge.py",
+    "sha256": "a4b7a5e245238f317d426d545b984e5826f2db83f7e2c775877ba69bc7588d93"
+  },
+  "src/thinkmorph_grpo/visual_checks.py": {
+    "origin": "rtx_image_batch2_pilot_20261113/source/thinkmorph_grpo/visual_checks.py",
+    "sha256": "900114a088f24323f2478f43f41b07028c7198e4542a0abc487eeda409a7ca38"
+  },
+  "src/thinkmorph_grpo/bridge.py": {
+    "origin": "rtx_image_batch2_pilot_20261113/source/thinkmorph_grpo/bridge.py",
+    "sha256": "f98f29e7bb62330efe366b375313c007ed9d8d2c6ed254fcc2abd48ca438494f"
+  },
+  "src/thinkmorph_grpo/native_autograd.py": {
+    "origin": "rtx_image_batch2_pilot_20261113/source/thinkmorph_grpo/native_autograd.py",
+    "sha256": "56d7c2f781c750fd75dee264320818e6d2df614ca277d2da44fc8d2c9aefc499"
+  },
+  "src/thinkmorph_grpo/trainer.py": {
+    "origin": "rtx_image_batch2_pilot_20261113/source/thinkmorph_grpo/trainer.py",
+    "sha256": "61a19a860fb382cf2f8ff870422bac9822b29a6e422060e51ffdb72ddc6b2343"
+  },
+  "src/thinkmorph_grpo/dataset.py": {
+    "origin": "rtx_image_batch2_pilot_20261113/source/thinkmorph_grpo/dataset.py",
+    "sha256": "a7ce267eb2ef779c5c759342ff66c7d397c34b858911c19abf4b555331d79eea"
+  },
+  "src/thinkmorph_grpo/judge_v2.py": {
+    "origin": "rtx_image_batch2_pilot_20261113/source/thinkmorph_grpo/judge_v2.py",
+    "sha256": "fbd2260aa963baebd16849e78b6189748ef83f9f6f5ce2a76b120c4e645cacbf"
+  },
+  "src/thinkmorph_grpo/runtime.py": {
+    "origin": "rtx_image_batch2_pilot_20261113/source/thinkmorph_grpo/runtime.py",
+    "sha256": "7721a503c02252d460121f65ebd78208da8571599b0e2b957b5162752ad4a21b"
+  },
+  "src/thinkmorph_grpo/sample_history.py": {
+    "origin": "rtx_image_batch2_pilot_20261113/source/thinkmorph_grpo/sample_history.py",
+    "sha256": "b0c1d87bed1225b9e71830a09edf2272b275c076182ded6339c2649c71d357d7"
+  },
+  "src/thinkmorph_grpo/parallel_trainer.py": {
+    "origin": "rtx_image_batch2_pilot_20261113/source/thinkmorph_grpo/parallel_trainer.py",
+    "sha256": "8a5e7693cc6b09dde3bcb688a2971974192461acc0e30bc740926c5e441dc347"
+  },
+  "src/thinkmorph_grpo/randomness.py": {
+    "origin": "rtx_image_batch2_pilot_20261113/source/thinkmorph_grpo/randomness.py",
+    "sha256": "d2bacf67e51aba2f851df2263f4834201ccc4625afd1d235a1ca8c36fde3675b"
+  },
+  "src/thinkmorph_grpo/paired_packing.py": {
+    "origin": "rtx_image_batch2_pilot_20261113/source/thinkmorph_grpo/paired_packing.py",
+    "sha256": "ce5c944eb5a65323e6e1a6092c7001bfb141786b2e68cc3d574c7a16c142a643"
+  },
+  "snapshots/production/thinkmorph_grpo/train_distributed.py": {
+    "origin": "a100_parallel_fresh_20261111/release/source/thinkmorph_grpo/train_distributed.py",
+    "sha256": "c76d79b7a52ee80e8e1611c688f25b10183c99233f8a845439b530a38abbe8b6"
+  },
+  "snapshots/production/thinkmorph_grpo/paired_rollout.py": {
+    "origin": "a100_parallel_fresh_20261111/release/source/thinkmorph_grpo/paired_rollout.py",
+    "sha256": "fa82b8143026f2caf06aa33555db72123761c7a97e4c62a437ef3987a62a9150"
+  },
+  "snapshots/production/thinkmorph_grpo/train.py": {
+    "origin": "a100_parallel_fresh_20261111/release/source/thinkmorph_grpo/train.py",
+    "sha256": "2dc4fb7e1c1af1de09d15508dd7d5a07fa068e16c07bb313e55f8d3260d22bbd"
+  },
+  "snapshots/production/thinkmorph_grpo/__init__.py": {
+    "origin": "a100_parallel_fresh_20261111/release/source/thinkmorph_grpo/__init__.py",
+    "sha256": "ec1d83d0b01bdd9eaab465e74ee8277a37db12ec0d4c9c6e8e216b334b45cb18"
+  },
+  "snapshots/production/thinkmorph_grpo/replay.py": {
+    "origin": "a100_parallel_fresh_20261111/release/source/thinkmorph_grpo/replay.py",
+    "sha256": "aa6cee2d2e14aa3764323b10a0e5c61b4840122e208c244a5b134f6497fb840f"
+  },
+  "snapshots/production/thinkmorph_grpo/judge.py": {
+    "origin": "a100_parallel_fresh_20261111/release/source/thinkmorph_grpo/judge.py",
+    "sha256": "5cbd82977692dbaaba4724278fa827f17f4ae1a0fe8f454fcc477e53201374c0"
+  },
+  "snapshots/production/thinkmorph_grpo/paired_replay.py": {
+    "origin": "a100_parallel_fresh_20261111/release/source/thinkmorph_grpo/paired_replay.py",
+    "sha256": "0cb91e5f8031b54218fc5fd6da75377b4466912405006cd7a30896907aa48972"
+  },
+  "snapshots/production/thinkmorph_grpo/gemini_judge.py": {
+    "origin": "a100_parallel_fresh_20261111/release/source/thinkmorph_grpo/gemini_judge.py",
+    "sha256": "985096cfe163cf1fe1881bf99fd02e827188822af2e8d7135662df9d30c0aaaa"
+  },
+  "snapshots/production/thinkmorph_grpo/sde.py": {
+    "origin": "a100_parallel_fresh_20261111/release/source/thinkmorph_grpo/sde.py",
+    "sha256": "210aefb5089b904f85bbf774a939a968f89b82b1849377cf14ffa70fd3d4a56c"
+  },
+  "snapshots/production/thinkmorph_grpo/paired_trainer.py": {
+    "origin": "a100_parallel_fresh_20261111/release/source/thinkmorph_grpo/paired_trainer.py",
+    "sha256": "1fb973407d8da5444d3c1ae0c4a1261f7714d8451e559f2f1e55bb6d58142cee"
+  },
+  "snapshots/production/thinkmorph_grpo/objective.py": {
+    "origin": "a100_parallel_fresh_20261111/release/source/thinkmorph_grpo/objective.py",
+    "sha256": "3b5d9e5fbe1a01b4b6e458213cd729859c8e5ab909198f6d95105c067dce6c03"
+  },
+  "snapshots/production/thinkmorph_grpo/parallel_replay.py": {
+    "origin": "a100_parallel_fresh_20261111/release/source/thinkmorph_grpo/parallel_replay.py",
+    "sha256": "272af9629fd556e8596e7037f9164224d85e74abe0527fbf9c30b362be99beab"
+  },
+  "snapshots/production/thinkmorph_grpo/observation_normalization.py": {
+    "origin": "a100_parallel_fresh_20261111/release/source/thinkmorph_grpo/observation_normalization.py",
+    "sha256": "a2e0d62c2f3dc1fc512147e1095641eae24711c0e4c5d2e158adb7179527cecb"
+  },
+  "snapshots/production/thinkmorph_grpo/distributed.py": {
+    "origin": "a100_parallel_fresh_20261111/release/source/thinkmorph_grpo/distributed.py",
+    "sha256": "098541d4d6a2db6423fccffd4f7a454f51591ab305ef61473c375bd672315abd"
+  },
+  "snapshots/production/thinkmorph_grpo/navigation_perception.py": {
+    "origin": "a100_parallel_fresh_20261111/release/source/thinkmorph_grpo/navigation_perception.py",
+    "sha256": "d6ce08c5dca1983c9eb917763c3c16ab86dab481f810832ac8ed243b36b07b95"
+  },
+  "snapshots/production/thinkmorph_grpo/guidance.py": {
+    "origin": "a100_parallel_fresh_20261111/release/source/thinkmorph_grpo/guidance.py",
+    "sha256": "b9722df1b77736c82c747eae4e677ea6177d130491acd0770f7dc9f6510bf5ab"
+  },
+  "snapshots/production/thinkmorph_grpo/paired_sampling.py": {
+    "origin": "a100_parallel_fresh_20261111/release/source/thinkmorph_grpo/paired_sampling.py",
+    "sha256": "158d3c93077527dd6fb8c5d398f6860b76897298931a75d973a5f8bb75f8878a"
+  },
+  "snapshots/production/thinkmorph_grpo/checks.py": {
+    "origin": "a100_parallel_fresh_20261111/release/source/thinkmorph_grpo/checks.py",
+    "sha256": "4ccde826f5e218194068f48693cee524679f79659e7359ed097a2bf88f4bccf2"
+  },
+  "snapshots/production/thinkmorph_grpo/practical_judge.py": {
+    "origin": "a100_parallel_fresh_20261111/release/source/thinkmorph_grpo/practical_judge.py",
+    "sha256": "a4b7a5e245238f317d426d545b984e5826f2db83f7e2c775877ba69bc7588d93"
+  },
+  "snapshots/production/thinkmorph_grpo/visual_checks.py": {
+    "origin": "a100_parallel_fresh_20261111/release/source/thinkmorph_grpo/visual_checks.py",
+    "sha256": "900114a088f24323f2478f43f41b07028c7198e4542a0abc487eeda409a7ca38"
+  },
+  "snapshots/production/thinkmorph_grpo/bridge.py": {
+    "origin": "a100_parallel_fresh_20261111/release/source/thinkmorph_grpo/bridge.py",
+    "sha256": "f98f29e7bb62330efe366b375313c007ed9d8d2c6ed254fcc2abd48ca438494f"
+  },
+  "snapshots/production/thinkmorph_grpo/native_autograd.py": {
+    "origin": "a100_parallel_fresh_20261111/release/source/thinkmorph_grpo/native_autograd.py",
+    "sha256": "56d7c2f781c750fd75dee264320818e6d2df614ca277d2da44fc8d2c9aefc499"
+  },
+  "snapshots/production/thinkmorph_grpo/trainer.py": {
+    "origin": "a100_parallel_fresh_20261111/release/source/thinkmorph_grpo/trainer.py",
+    "sha256": "61a19a860fb382cf2f8ff870422bac9822b29a6e422060e51ffdb72ddc6b2343"
+  },
+  "snapshots/production/thinkmorph_grpo/dataset.py": {
+    "origin": "a100_parallel_fresh_20261111/release/source/thinkmorph_grpo/dataset.py",
+    "sha256": "a7ce267eb2ef779c5c759342ff66c7d397c34b858911c19abf4b555331d79eea"
+  },
+  "snapshots/production/thinkmorph_grpo/judge_v2.py": {
+    "origin": "a100_parallel_fresh_20261111/release/source/thinkmorph_grpo/judge_v2.py",
+    "sha256": "fbd2260aa963baebd16849e78b6189748ef83f9f6f5ce2a76b120c4e645cacbf"
+  },
+  "snapshots/production/thinkmorph_grpo/runtime.py": {
+    "origin": "a100_parallel_fresh_20261111/release/source/thinkmorph_grpo/runtime.py",
+    "sha256": "4cd03dc7b6377ac46d3977221ecc035ebf3de10db643ea4a79cb4b5a4c289ea3"
+  },
+  "snapshots/production/thinkmorph_grpo/sample_history.py": {
+    "origin": "a100_parallel_fresh_20261111/release/source/thinkmorph_grpo/sample_history.py",
+    "sha256": "b0c1d87bed1225b9e71830a09edf2272b275c076182ded6339c2649c71d357d7"
+  },
+  "snapshots/production/thinkmorph_grpo/parallel_trainer.py": {
+    "origin": "a100_parallel_fresh_20261111/release/source/thinkmorph_grpo/parallel_trainer.py",
+    "sha256": "42d24e483df7277962b191a60158eb165ff85862c1209ec908d20e9887d49d31"
+  },
+  "snapshots/production/thinkmorph_grpo/randomness.py": {
+    "origin": "a100_parallel_fresh_20261111/release/source/thinkmorph_grpo/randomness.py",
+    "sha256": "d2bacf67e51aba2f851df2263f4834201ccc4625afd1d235a1ca8c36fde3675b"
+  },
+  "snapshots/production/thinkmorph_grpo/paired_packing.py": {
+    "origin": "a100_parallel_fresh_20261111/release/source/thinkmorph_grpo/paired_packing.py",
+    "sha256": "ce5c944eb5a65323e6e1a6092c7001bfb141786b2e68cc3d574c7a16c142a643"
+  }
+}
