@@ -4,7 +4,7 @@
   "cpu_tests": {
     "passed": 223,
     "failed": 0,
-    "runner": "unittest; 222-test full suite plus one added W&B configuration test, all six portable tests rerun"
+    "runner": "unittest, all 223 tests passed in a clean Git checkout without the experiment source or MathCanvas on PYTHONPATH"
   },
   "native_and_vlmeval_pinned_git_fetch": "passed",
   "vlmeval_patch_apply": "passed",
@@ -57,5 +57,6 @@
     "No clean Ubuntu install performed during packaging",
     "No new GPU training/inference launched during packaging",
     "No H200 or two-node throughput validation"
-  ]
+  ],
+  "clean_checkout": "passed"
 }
